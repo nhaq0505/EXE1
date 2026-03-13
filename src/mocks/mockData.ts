@@ -80,7 +80,7 @@ export const products: Product[] = [
     id: "p4",
     farmId: "f2",
     name: "Juicy Oranges",
-    image: "https://images.unsplash.com/photo-1611080661262-113aa4b7fbf9?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&q=80&w=2000",
     price: 45000,
     category: "Fruits",
     unit: "kg"
@@ -98,7 +98,7 @@ export const products: Product[] = [
     id: "p6",
     farmId: "f3",
     name: "Organic Beef",
-    image: "https://images.unsplash.com/photo-1603048297172-c92544798d5e?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&q=80&w=2000",
     price: 250000,
     category: "Meat",
     unit: "kg"
