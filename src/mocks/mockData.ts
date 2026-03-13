@@ -45,6 +45,24 @@ export const farms: Farm[] = [
     location: "Ba Vi, Hanoi",
     rating: 4.9,
     videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+  },
+  {
+    id: "f4",
+    name: "Highland Tea Estate",
+    image: "https://images.unsplash.com/photo-1576675466969-38eeae4b2973?q=80&w=2000&auto=format&fit=crop",
+    description: "Organic tea plantation offering the finest hand-picked tea leaves.",
+    location: "Bao Loc, Lam Dong",
+    rating: 4.7,
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+  },
+  {
+    id: "f5",
+    name: "Oceanic AquaFarm",
+    image: "https://images.unsplash.com/photo-1518557984649-7b1e4a1bb674?q=80&w=2000&auto=format&fit=crop",
+    description: "Sustainable aquaculture providing fresh, ocean-caught quality seafood.",
+    location: "Nha Trang, Khanh Hoa",
+    rating: 4.6,
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
   }
 ];
 
@@ -101,6 +119,60 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&q=80&w=2000",
     price: 250000,
     category: "Meat",
+    unit: "kg"
+  },
+  {
+    id: "p7",
+    farmId: "f4",
+    name: "Oolong Tea Leaves",
+    image: "https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?q=80&w=2000&auto=format&fit=crop",
+    price: 85000,
+    category: "Khác",
+    unit: "hộp"
+  },
+  {
+    id: "p8",
+    farmId: "f4",
+    name: "Matcha Green Tea Powder",
+    image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?q=80&w=2000&auto=format&fit=crop",
+    price: 120000,
+    category: "Khác",
+    unit: "hộp"
+  },
+  {
+    id: "p9",
+    farmId: "f5",
+    name: "Fresh Atlantic Salmon",
+    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2000&auto=format&fit=crop",
+    price: 350000,
+    category: "Thịt",
+    unit: "kg"
+  },
+  {
+    id: "p10",
+    farmId: "f5",
+    name: "Tiger Prawns",
+    image: "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=2000&auto=format&fit=crop",
+    price: 450000,
+    category: "Thịt",
+    unit: "kg"
+  },
+  {
+    id: "p11",
+    farmId: "f1",
+    name: "Organic Carrots",
+    image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=2000&auto=format&fit=crop",
+    price: 25000,
+    category: "Vegetables",
+    unit: "kg"
+  },
+  {
+    id: "p12",
+    farmId: "f2",
+    name: "Watermelon",
+    image: "https://images.unsplash.com/photo-1587049352847-4d4b1245eebe?q=80&w=2000&auto=format&fit=crop",
+    price: 15000,
+    category: "Fruits",
     unit: "kg"
   }
 ];
