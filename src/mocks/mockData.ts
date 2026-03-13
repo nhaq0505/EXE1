@@ -26,7 +26,7 @@ export const farms: Farm[] = [
     description: "A beautiful organic farm dedicated to sustainable agriculture.",
     location: "Da Lat, Lam Dong",
     rating: 4.8,
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f2",
@@ -35,7 +35,7 @@ export const farms: Farm[] = [
     description: "Specializing in fresh, seasonal fruits and vegetables directly to your table.",
     location: "Moc Chau, Son La",
     rating: 4.5,
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f3",
@@ -44,7 +44,7 @@ export const farms: Farm[] = [
     description: "Premium quality organic meats and dairy products from free-range animals.",
     location: "Ba Vi, Hanoi",
     rating: 4.9,
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f4",
@@ -53,7 +53,7 @@ export const farms: Farm[] = [
     description: "Organic tea plantation offering the finest hand-picked tea leaves.",
     location: "Bao Loc, Lam Dong",
     rating: 4.7,
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f5",
@@ -62,7 +62,7 @@ export const farms: Farm[] = [
     description: "Sustainable aquaculture providing fresh, ocean-caught quality seafood.",
     location: "Nha Trang, Khanh Hoa",
     rating: 4.6,
-    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   }
 ];
 
