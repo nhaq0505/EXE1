@@ -58,7 +58,7 @@ export const farms: Farm[] = [
   {
     id: "f5",
     name: "Oceanic AquaFarm",
-    image: "https://images.unsplash.com/photo-1518814436548-56ca8121f614?q=80&w=2000&auto=format&fit=crop",
+    image: "https://i.pinimg.com/736x/d5/c9/d5/d5c9d5abd14f8e8c50e4e9eb982c159b.jpg",
     description: "Sustainable aquaculture providing fresh, ocean-caught quality seafood.",
     location: "Nha Trang, Khanh Hoa",
     rating: 4.6,
@@ -170,7 +170,7 @@ export const products: Product[] = [
     id: "p12",
     farmId: "f2",
     name: "Watermelon",
-    image: "https://images.unsplash.com/photo-1587049352847-4d4b1245eebe?q=80&w=2000&auto=format&fit=crop",
+    image: "https://i.pinimg.com/736x/28/b2/3e/28b23e46d1ede2b64e084230bb77876e.jpg",
     price: 15000,
     category: "Fruits",
     unit: "kg"
