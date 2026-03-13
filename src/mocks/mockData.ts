@@ -49,7 +49,7 @@ export const farms: Farm[] = [
   {
     id: "f4",
     name: "Highland Tea Estate",
-    image: "https://images.unsplash.com/photo-1576675466969-38eeae4b2973?q=80&w=2000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?q=80&w=2000&auto=format&fit=crop",
     description: "Organic tea plantation offering the finest hand-picked tea leaves.",
     location: "Bao Loc, Lam Dong",
     rating: 4.7,
@@ -58,7 +58,7 @@ export const farms: Farm[] = [
   {
     id: "f5",
     name: "Oceanic AquaFarm",
-    image: "https://images.unsplash.com/photo-1518557984649-7b1e4a1bb674?q=80&w=2000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1518814436548-56ca8121f614?q=80&w=2000&auto=format&fit=crop",
     description: "Sustainable aquaculture providing fresh, ocean-caught quality seafood.",
     location: "Nha Trang, Khanh Hoa",
     rating: 4.6,
