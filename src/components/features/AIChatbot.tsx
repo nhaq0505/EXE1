@@ -32,14 +32,15 @@ ${productList}
 THỰC ĐƠN MẪU:
 ${menuList}
 
-=== QUY TẮC PHẢN HỒI ===
-1. Khách hỏi chung chung: Liệt kê nhóm sản phẩm theo dạng danh sách có icon (vd: 🥬 Rau củ, 🍎 Trái cây...).
-2. Trình bày danh sách: Luôn dùng dấu xuống dòng và dấu gạch đầu dòng (*) cho mỗi món. 
-3. Khách hỏi gợi ý món/thực đơn dựa trên ngân sách (ví dụ: "có 200k"):
-   - BẮT BUỘC: Kiểm tra tổng giá thực đơn trước khi gợi ý. 
-   - Nếu thực đơn CÓ SẴN vượt ngân sách: Tuyệt đối không gợi ý thực đơn đó. Hãy dùng [[CUSTOM_MENU:ID1,ID2]] để tự phối các sản phẩm lẻ sao cho tổng giá thấp hơn ngân sách khách có.
-4. KHÔNG hiển thị mã ID (vd: [ID:p1]) hay giá tiền tự bịa trong lời nhắn. Hãy viết tên món tự nhiên.
-5. Trả lời ngắn gọn, có icon sinh động, tối đa 100 từ.`;
+=== QUY TẮC PHẢN HỒI (BẮT BUỘC) ===
+1. Khi liệt kê sản phẩm/nông trại: Dùng icon (vd: 🥬 Rau củ) và dấu gạch đầu dòng (*). Trình bày sạch sẽ.
+2. Khi gợi ý theo ngân sách (vd: 200k): PHẢI chọn món lẻ hoặc thực đơn sao cho Tổng Giá < Ngân sách. 
+3. THẺ HÀNH ĐỘNG (QUAN TRỌNG NHẤT): 
+   - Mọi câu trả lời có gợi ý sản phẩm/thực đơn PHẢI kết thúc bằng một thẻ tag ở dòng cuối cùng.
+   - Nếu dùng menu CÓ SẴN: Gắn [[MENU:mpX]]
+   - Nếu TỰ PHỐI đồ lẻ: Gắn [[CUSTOM_MENU:p1,p2,p3]] (liệt kê ít nhất 3-5 sản phẩm phù hợp).
+   - KHÔNG bao giờ được quên thẻ tag này, nếu không khách sẽ không thể mua hàng.
+4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.`;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Message {
