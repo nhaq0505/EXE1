@@ -1,3 +1,4 @@
+import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import type { Product } from '../../mocks/mockData';
 import { Card, CardContent, CardFooter } from '../ui/Card';
@@ -25,9 +26,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card className="h-full flex flex-col overflow-hidden hover:shadow-md transition-all duration-300 group">
       <div className="relative aspect-square overflow-hidden bg-gray-100">
-        <img 
-          src={product.image} 
-          alt={product.name} 
+        <img
+          src={product.image}
+          alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -44,8 +45,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button 
-          onClick={handleAddToCart} 
+        <Button
+          onClick={handleAddToCart}
           className="w-full gap-2 transition-transform duration-200 active:scale-95"
         >
           <ShoppingCart className="w-4 h-4" />

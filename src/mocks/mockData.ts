@@ -176,3 +176,82 @@ export const products: Product[] = [
     unit: "kg"
   }
 ];
+
+export interface MealPlan {
+  id: string;
+  title: string;
+  targetAudience: string;
+  calories: number;
+  dishes: string[];
+  features: string[];
+  totalPrice: number;
+}
+
+export const mealPlans: MealPlan[] = [
+  {
+    id: "mp1",
+    title: "Thực Đơn Đôi Lứa",
+    targetAudience: "Gia đình 2 người",
+    calories: 1200,
+    dishes: [
+      "Canh bí đỏ hầm xương",
+      "Cá hồi áp chảo sốt chanh leo",
+      "Rau cải xào tỏi",
+      "Cơm gạo lứt hữu cơ",
+      "Salad dưa leo cà chua cherry"
+    ],
+    features: ["Zero Waste", "Tối ưu Dinh dưỡng", "Nấu nhanh 30 phút"],
+    totalPrice: 285000
+  },
+  {
+    id: "mp2",
+    title: "Thực Đơn Gia Đình Nhỏ",
+    targetAudience: "Gia đình 3 người",
+    calories: 1800,
+    dishes: [
+      "Canh chua cá lóc đồng",
+      "Thịt bò xào rau cải",
+      "Đậu phụ sốt cà chua",
+      "Gà hấp gừng hành",
+      "Cơm trắng & Rau luộc",
+      "Canh rau ngót thịt băm"
+    ],
+    features: ["Zero Waste", "Tối ưu Logistics", "Thân thiện trẻ em"],
+    totalPrice: 420000
+  },
+  {
+    id: "mp3",
+    title: "Thực Đơn Gia Đình Chuẩn",
+    targetAudience: "Gia đình 4 người",
+    calories: 2400,
+    dishes: [
+      "Thịt kho tàu hột vịt",
+      "Canh khổ qua nhồi thịt",
+      "Tôm sú rang muối",
+      "Rau muống xào tỏi",
+      "Cơm gạo lứt & Dưa leo",
+      "Chả giò rau củ",
+      "Súp bí đỏ kem"
+    ],
+    features: ["Zero Waste", "Tối ưu Logistics", "Cân bằng dinh dưỡng", "Gom đơn chung cư"],
+    totalPrice: 580000
+  },
+  {
+    id: "mp4",
+    title: "Thực Đơn Đại Gia Đình",
+    targetAudience: "Gia đình 5 người",
+    calories: 2800,
+    dishes: [
+      "Lẩu thái hải sản",
+      "Sườn non kho sả ớt",
+      "Bông cải xanh xào nấm",
+      "Tôm chiên giòn mắm tỏi",
+      "Canh bò rau thập cẩm",
+      "Cơm trắng & Dưa cải muối",
+      "Chè đậu xanh hạt sen",
+      "Trái cây tráng miệng theo mùa"
+    ],
+    features: ["Zero Waste", "Tối ưu Logistics", "Phong phú 8 món", "Gom đơn chung cư", "Cao cấp"],
+    totalPrice: 730000
+  }
+];

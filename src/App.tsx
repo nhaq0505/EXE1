@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Shop from './pages/Shop';
 import FarmDetail from './pages/FarmDetail';
 import Checkout from './pages/Checkout';
+import MealPlans from './pages/MealPlans';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/farms" element={<Shop />} />
             <Route path="/farms/:id" element={<FarmDetail />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/meal-plans" element={<MealPlans />} />
             {/* Add a catch-all route if needed */}
             <Route path="*" element={<Home />} />
           </Route>
