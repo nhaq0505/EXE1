@@ -56,7 +56,7 @@ const MealPlans: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {mealPlans.map((plan) => (
             <MealPlanCard key={plan.id} plan={plan} />
           ))}

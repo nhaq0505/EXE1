@@ -1,14 +1,44 @@
-import { CheckCircle, Camera, Users, Flame, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle, Camera, Users, Flame, ShoppingCart, PackageCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card';
 import type { MealPlan } from '../../mocks/mockData';
+import { menuIngredients, products } from '../../mocks/mockData';
+import { useCart } from '../../context/CartContext';
 
 interface MealPlanCardProps {
   plan: MealPlan;
 }
 
 export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
-  const formattedPrice = plan.totalPrice.toLocaleString('vi-VN');
+  const { addToCart, toggleCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  // Tính giá thực tế từ các sản phẩm trong menuIngredients
+  const ingredientIds = menuIngredients[plan.id] ?? [];
+  const ingredientProducts = ingredientIds
+    .map((id) => products.find((p) => p.id === id))
+    .filter(Boolean) as typeof products;
+
+  const realTotalPrice = ingredientProducts.reduce((sum, p) => sum + p.price, 0);
+  const formattedPrice = realTotalPrice.toLocaleString('vi-VN');
+
+  const handleAddMenuToCart = () => {
+    if (ingredientProducts.length === 0) return;
+
+    ingredientProducts.forEach((product) => {
+      addToCart(product);
+    });
+
+    // Visual feedback on the button
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2500);
+
+    // Auto-open the cart drawer so the user sees the items fly in
+    setTimeout(() => {
+      toggleCart();
+    }, 300);
+  };
 
   return (
     <Card className="flex flex-col h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-gray-200 overflow-hidden group">
@@ -63,10 +93,18 @@ export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
           ))}
         </ul>
 
+        {/* Ingredient count indicator */}
+        <div className="mt-4 flex items-center gap-2 text-xs text-gray-400">
+          <PackageCheck className="w-4 h-4 text-green-400" />
+          <span>
+            {(menuIngredients[plan.id] ?? []).length} nguyên liệu được định lượng sẵn
+          </span>
+        </div>
+
         {/* Visual Trust block */}
         <Link
           to="/farms"
-          className="mt-5 flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 hover:border-green-300 transition-colors group/link"
+          className="mt-4 flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-100 hover:border-green-300 transition-colors group/link"
         >
           <div className="bg-green-100 p-2 rounded-lg flex-shrink-0 group-hover/link:bg-green-200 transition-colors">
             <Camera className="w-5 h-5 text-green-600" />
@@ -90,9 +128,26 @@ export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
         </div>
 
         {/* CTA Button */}
-        <button className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 active:scale-[0.98] text-white font-semibold py-3.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg text-sm">
-          <ShoppingCart className="w-5 h-5" />
-          🛒 Thêm nguyên liệu vào giỏ (Gom đơn chung cư)
+        <button
+          onClick={handleAddMenuToCart}
+          disabled={added}
+          className={`w-full flex items-center justify-center gap-2 font-semibold py-3.5 rounded-xl transition-all duration-300 shadow-md text-sm
+            ${added
+              ? 'bg-emerald-500 hover:bg-emerald-500 text-white scale-95 cursor-default'
+              : 'bg-green-600 hover:bg-green-700 active:scale-[0.98] text-white hover:shadow-lg'
+            }`}
+        >
+          {added ? (
+            <>
+              <PackageCheck className="w-5 h-5 animate-bounce" />
+              Đã thêm {(menuIngredients[plan.id] ?? []).length} nguyên liệu vào giỏ! 🎉
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="w-5 h-5" />
+              🛒 Thêm nguyên liệu vào giỏ
+            </>
+          )}
         </button>
       </CardFooter>
     </Card>
