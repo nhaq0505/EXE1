@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Bot, MessageCircle, X, Send, AlertCircle, ShoppingCart, CheckCircle, Package } from 'lucide-react';
+import { Bot, MessageCircle, X, Send, ShoppingCart, CheckCircle, Package } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Button } from '../ui/Button';
-import { farms, products, mealPlans, menuIngredients } from '../../mocks/mockData';
+import { products, mealPlans, menuIngredients } from '../../mocks/mockData';
 import { useCart } from '../../context/CartContext';
 
 // ── System Prompt ─────────────────────────────────────────────────────────────
@@ -10,9 +10,7 @@ const productList = products
   .map(p => `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ`)
   .join('\n');
 
-const farmList = farms
-  .map(f => `- ${f.name} tại ${f.location} (⭐${f.rating})`)
-  .join('\n');
+
 
 const menuList = mealPlans
   .map(m => {
