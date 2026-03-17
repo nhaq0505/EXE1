@@ -4,6 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Button } from '../ui/Button';
 import { products, mealPlans, menuIngredients } from '../../mocks/mockData';
 import { useCart } from '../../context/CartContext';
+import { useCartAnimation } from '../../context/CartAnimationContext';
 
 // ── System Prompt ─────────────────────────────────────────────────────────────
 const productList = products
@@ -55,7 +56,8 @@ interface Message {
 
 // ── Inline Meal Plan Card (Static mpX) ──────────────────────────────────────────
 function MealPlanSuggestionCard({ planId }: { planId: string }) {
-  const { addToCart, toggleCart } = useCart();
+  const { addToCart } = useCart();
+  const { animateToCart } = useCartAnimation();
   const [added, setAdded] = useState(false);
 
   const plan = mealPlans.find(m => m.id === planId);
@@ -68,10 +70,11 @@ function MealPlanSuggestionCard({ planId }: { planId: string }) {
 
   const dynamicPrice = ingredientProducts.reduce((sum, p) => sum + p.price, 0);
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    animateToCart(rect.left + rect.width / 2, rect.top + rect.height / 2);
     ingredientProducts.forEach(p => addToCart(p));
     setAdded(true);
-    setTimeout(() => toggleCart(), 700);
   };
 
   return (
@@ -102,7 +105,8 @@ function MealPlanSuggestionCard({ planId }: { planId: string }) {
 
 // ── Custom Menu Card (Dynamic Product List) ────────────────────────────────────
 function CustomMenuCard({ productIds }: { productIds: string[] }) {
-  const { addToCart, toggleCart } = useCart();
+  const { addToCart } = useCart();
+  const { animateToCart } = useCartAnimation();
   const [added, setAdded] = useState(false);
 
   const selectedProducts = productIds
@@ -113,10 +117,11 @@ function CustomMenuCard({ productIds }: { productIds: string[] }) {
 
   const totalPrice = selectedProducts.reduce((sum, p) => sum + p.price, 0);
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    animateToCart(rect.left + rect.width / 2, rect.top + rect.height / 2);
     selectedProducts.forEach(p => addToCart(p));
     setAdded(true);
-    setTimeout(() => toggleCart(), 700);
   };
 
   return (

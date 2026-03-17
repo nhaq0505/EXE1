@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { useCart } from '../../context/CartContext';
+import { useCartAnimation } from '../../context/CartAnimationContext';
 
 interface ProductCardProps {
   product: Product;
@@ -12,9 +13,12 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
+  const { animateToCart } = useCartAnimation();
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigating if this card is somehow inside a link later
+    e.preventDefault();
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    animateToCart(rect.left + rect.width / 2, rect.top + rect.height / 2, product.image);
     addToCart(product);
   };
 

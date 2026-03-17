@@ -21,28 +21,28 @@ export interface Product {
 export const farms: Farm[] = [
   {
     id: "f1",
-    name: "Trang Trại Rừng Xanh",
+    name: "Hợp Tác Xã Rau Thịt Sạch Đà Nẵng",
     image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2070&auto=format&fit=crop",
     description: "Trang trại hữu cơ xanh mút, cam kết canh tác bền vững và an toàn cho sức khỏe.",
-    location: "Dà Lạt, Lâm Đồng",
+    location: "Hoà Vang, Đà Nẵng",
     rating: 4.8,
     videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f2",
-    name: "Vườn Cao Nguyên",
+    name: "Top Việt",
     image: "https://i.pinimg.com/736x/ec/b4/19/ecb419060c1fc1e19265566c8bc536cd.jpg",
     description: "Chuyên cung cấp rựa quả, trái cây tươi theo mùa, thẳng từ vườn đến bàn ăn của bạn.",
-    location: "Mộc Châu, Sơn La",
+    location: "Hoà Vang,Đà Nẵng",
     rating: 4.5,
     videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
   {
     id: "f3",
-    name: "Nông Trại Phú Nguyên",
+    name: "Lạc Sơn Foof",
     image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2003&auto=format&fit=crop",
     description: "Thịt sạch và thực phẩm hữu cơ cao cấp từ vật nuôi thả tự nhiên, chăn thả ngoài trời.",
-    location: "Ba Vì, Hà Nội",
+    location: "Đà Nẵng",
     rating: 4.9,
     videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   },
@@ -57,10 +57,10 @@ export const farms: Farm[] = [
   },
   {
     id: "f5",
-    name: "Trại Thuỷ Sản Biển Xanh",
+    name: "Danafish-Công ty Cổ Phần Thủy Sản Đà Nẵng",
     image: "https://i.pinimg.com/1200x/98/aa/54/98aa549386e82e4c061992d91540d526.jpg",
     description: "Nuôi trồng thủy sản bền vững, cung cấp hải sản tươi ngon chất lượng cao.",
-    location: "Nha Trang, Khánh Hòa",
+    location: "Đà Nẵng",
     rating: 4.6,
     videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
   }

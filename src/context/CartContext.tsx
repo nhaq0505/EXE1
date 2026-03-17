@@ -31,8 +31,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
-    // Open cart when adding item automatically
-    setIsCartOpen(true);
   };
 
   const removeFromCart = (productId: string) => {

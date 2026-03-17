@@ -5,13 +5,15 @@ import { Card, CardContent, CardFooter, CardHeader } from '../ui/Card';
 import type { MealPlan } from '../../mocks/mockData';
 import { menuIngredients, products } from '../../mocks/mockData';
 import { useCart } from '../../context/CartContext';
+import { useCartAnimation } from '../../context/CartAnimationContext';
 
 interface MealPlanCardProps {
   plan: MealPlan;
 }
 
 export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
-  const { addToCart, toggleCart } = useCart();
+  const { addToCart } = useCart();
+  const { animateToCart } = useCartAnimation();
   const [added, setAdded] = useState(false);
 
   // Tính giá thực tế từ các sản phẩm trong menuIngredients
@@ -23,8 +25,11 @@ export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
   const realTotalPrice = ingredientProducts.reduce((sum, p) => sum + p.price, 0);
   const formattedPrice = realTotalPrice.toLocaleString('vi-VN');
 
-  const handleAddMenuToCart = () => {
+  const handleAddMenuToCart = (e: React.MouseEvent) => {
     if (ingredientProducts.length === 0) return;
+
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    animateToCart(rect.left + rect.width / 2, rect.top + rect.height / 2);
 
     ingredientProducts.forEach((product) => {
       addToCart(product);
@@ -33,11 +38,6 @@ export const MealPlanCard: React.FC<MealPlanCardProps> = ({ plan }) => {
     // Visual feedback on the button
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
-
-    // Auto-open the cart drawer so the user sees the items fly in
-    setTimeout(() => {
-      toggleCart();
-    }, 300);
   };
 
   return (

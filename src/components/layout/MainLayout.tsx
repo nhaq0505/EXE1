@@ -71,7 +71,7 @@ export const MainLayout: React.FC = () => {
                 </button>
               )}
 
-              <button onClick={toggleCart} className="relative p-2 text-gray-600 hover:text-green-600 transition-colors focus:outline-none">
+              <button id="cart-icon" onClick={toggleCart} className="relative p-2 text-gray-600 hover:text-green-600 transition-colors focus:outline-none">
                 <ShoppingCart className="h-6 w-6" />
                 {cartItemsCount > 0 && (
                   <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-500 rounded-full">
