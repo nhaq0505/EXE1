@@ -39,7 +39,7 @@ export const farms: Farm[] = [
   },
   {
     id: "f3",
-    name: "Lạc Sơn Foof",
+    name: "Lạc Sơn Food",
     image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2003&auto=format&fit=crop",
     description: "Thịt sạch và thực phẩm hữu cơ cao cấp từ vật nuôi thả tự nhiên, chăn thả ngoài trời.",
     location: "Đà Nẵng",
