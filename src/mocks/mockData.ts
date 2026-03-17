@@ -21,7 +21,7 @@ export interface Product {
 export const farms: Farm[] = [
   {
     id: "f1",
-    name: "Trang Trại ThỪng Xanh",
+    name: "Trang Trại Rừng Xanh",
     image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2070&auto=format&fit=crop",
     description: "Trang trại hữu cơ xanh mút, cam kết canh tác bền vững và an toàn cho sức khỏe.",
     location: "Dà Lạt, Lâm Đồng",
