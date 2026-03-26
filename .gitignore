@@ -1,0 +1,19 @@
+# Frontend
+farm-to-table/node_modules/
+farm-to-table/dist/
+farm-to-table/.env*
+
+# Backend (.NET)
+Be/bin/
+Be/obj/
+Be/.vs/
+Be/*.user
+Be/appsettings*.json
+!Be/appsettings.json
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
