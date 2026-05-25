@@ -48,8 +48,8 @@ ${menuList}
 4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.
 5. QUẢN LÝ TỒN KHO (của nông trại/cửa hàng):
 -trả lời rõ còn bao nhiêu kg
-- sản phẩm thuộc nông trại nào
-- Không trả lời nền nền tảng còn bao nhiêu hàng tồn, chỉ rõ ra nông trại nào còn bao nhiêu`;
+- Form trả lời là : "Trong kho của bạn còn ? Kg" để có thể biết và nhập hàng"
+- `;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Message {

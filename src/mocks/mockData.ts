@@ -76,7 +76,7 @@ export const products: Product[] = [
     price: 35000,
     category: "Rau Củ",
     unit: "kg",
-    stock: 120
+    stock: 5
   },
   {
     id: "p2",
@@ -86,7 +86,7 @@ export const products: Product[] = [
     price: 20000,
     category: "Rau Củ",
     unit: "bó",
-    stock: 85
+    stock: 4
   },
   {
     id: "p3",
@@ -116,7 +116,7 @@ export const products: Product[] = [
     price: 120000,
     category: "Thịt",
     unit: "kg",
-    stock: 25
+    stock: 3
   },
   {
     id: "p6",
@@ -126,7 +126,7 @@ export const products: Product[] = [
     price: 250000,
     category: "Thịt",
     unit: "kg",
-    stock: 15
+    stock: 3
   },
   {
     id: "p7",
@@ -156,7 +156,7 @@ export const products: Product[] = [
     price: 350000,
     category: "Hải Sản",
     unit: "kg",
-    stock: 10
+    stock: 3
   },
   {
     id: "p10",
@@ -166,7 +166,7 @@ export const products: Product[] = [
     price: 450000,
     category: "Hải Sản",
     unit: "kg",
-    stock: 8
+    stock: 3
   },
   {
     id: "p11",
@@ -277,7 +277,7 @@ export const products: Product[] = [
     price: 180000,
     category: "Thịt",
     unit: "kg",
-    stock: 5
+    stock: 4
   },
   {
     id: "p22",
@@ -288,6 +288,57 @@ export const products: Product[] = [
     category: "Khác",
     unit: "kg",
     stock: 75
+  },
+  // === Sản phẩm mới ===
+  {
+    id: "p23",
+    farmId: "f3",
+    name: "Thịt Heo Sạch",
+    image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=2000&auto=format&fit=crop",
+    price: 130000,
+    category: "Thịt",
+    unit: "kg",
+    stock: 4
+  },
+  {
+    id: "p24",
+    farmId: "f5",
+    name: "Cá Ngừ Tươi",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2000&auto=format&fit=crop",
+    price: 280000,
+    category: "Hải Sản",
+    unit: "kg",
+    stock: 2
+  },
+  {
+    id: "p25",
+    farmId: "f3",
+    name: "Trứng Gà Thả Vườn",
+    image: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?q=80&w=2000&auto=format&fit=crop",
+    price: 45000,
+    category: "Khác",
+    unit: "vỉ",
+    stock: 5
+  },
+  {
+    id: "p26",
+    farmId: "f3",
+    name: "Nước Xốt Thịt Nướng",
+    image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?q=80&w=2000&auto=format&fit=crop",
+    price: 35000,
+    category: "Khác",
+    unit: "chai",
+    stock: 3
+  },
+  {
+    id: "p27",
+    farmId: "f1",
+    name: "Rau Ngò Tươi",
+    image: "https://images.unsplash.com/photo-1592928302636-c83cf1e1c887?q=80&w=2000&auto=format&fit=crop",
+    price: 8000,
+    category: "Rau Củ",
+    unit: "bó",
+    stock: 5
   }
 ];
 
