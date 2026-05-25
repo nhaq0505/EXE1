@@ -8,7 +8,7 @@ import { useCartAnimation } from '../../context/CartAnimationContext';
 
 // ── System Prompt ─────────────────────────────────────────────────────────────
 const productList = products
-  .map(p => `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ`)
+  .map(p => `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ Tồn kho:[${p.stock}]${p.unit}`)
   .join('\n');
 
 
@@ -27,7 +27,7 @@ const menuList = mealPlans
 const systemInstruction = `Bạn là trợ lý ảo THÔNG MINH của Green Solution.
 Nhiệm vụ: Tư vấn nông sản và đề xuất thực đơn CHÍNH XÁC theo ngân sách.
 
-DANH SÁCH SẢN PHẨM & GIÁ:
+DANH SÁCH SẢN PHẨM, GIÁ & TỒN KHO:
 ${productList}
 
 THỰC ĐƠN MẪU:
@@ -41,7 +41,11 @@ ${menuList}
    - Nếu dùng menu CÓ SẴN: Gắn [[MENU:mpX]]
    - Nếu TỰ PHỐI đồ lẻ: Gắn [[CUSTOM_MENU:p1,p2,p3]] (liệt kê ít nhất 3-5 sản phẩm phù hợp).
    - KHÔNG bao giờ được quên thẻ tag này, nếu không khách sẽ không thể mua hàng.
-4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.`;
+4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.
+5. QUẢN LÝ TỒN KHO:
+   - Nếu sản phẩm có Tồn kho <= 10: Cảnh báo "⚠️ Sắp hết hàng" khi gợi ý.
+   - Nếu sản phẩm có Tồn kho = 0: KHÔNG gợi ý sản phẩm đó, thông báo "❌ Tạm hết hàng".
+   - Ưu tiên gợi ý sản phẩm còn nhiều hàng.`;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Message {

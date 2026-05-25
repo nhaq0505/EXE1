@@ -16,6 +16,7 @@ export interface Product {
   price: number;
   category: string;
   unit: string;
+  stock: number;
 }
 
 export const farms: Farm[] = [
@@ -74,7 +75,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=2032&auto=format&fit=crop",
     price: 35000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 120
   },
   {
     id: "p2",
@@ -83,7 +85,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?q=80&w=2069&auto=format&fit=crop",
     price: 20000,
     category: "Rau Củ",
-    unit: "bó"
+    unit: "bó",
+    stock: 85
   },
   {
     id: "p3",
@@ -92,7 +95,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=2070&auto=format&fit=crop",
     price: 150000,
     category: "Trái Cây",
-    unit: "kg"
+    unit: "kg",
+    stock: 30
   },
   {
     id: "p4",
@@ -101,7 +105,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&q=80&w=2000",
     price: 45000,
     category: "Trái Cây",
-    unit: "kg"
+    unit: "kg",
+    stock: 60
   },
   {
     id: "p5",
@@ -110,7 +115,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/1200x/dc/f9/b6/dcf9b63c48be495bda471fcf364ce9cc.jpg",
     price: 120000,
     category: "Thịt",
-    unit: "kg"
+    unit: "kg",
+    stock: 25
   },
   {
     id: "p6",
@@ -119,7 +125,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&q=80&w=2000",
     price: 250000,
     category: "Thịt",
-    unit: "kg"
+    unit: "kg",
+    stock: 15
   },
   {
     id: "p7",
@@ -128,7 +135,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?q=80&w=2000&auto=format&fit=crop",
     price: 85000,
     category: "Khác",
-    unit: "hộp"
+    unit: "hộp",
+    stock: 50
   },
   {
     id: "p8",
@@ -137,7 +145,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?q=80&w=2000&auto=format&fit=crop",
     price: 120000,
     category: "Khác",
-    unit: "hộp"
+    unit: "hộp",
+    stock: 40
   },
   {
     id: "p9",
@@ -146,7 +155,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2000&auto=format&fit=crop",
     price: 350000,
     category: "Hải Sản",
-    unit: "kg"
+    unit: "kg",
+    stock: 10
   },
   {
     id: "p10",
@@ -155,7 +165,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=2000&auto=format&fit=crop",
     price: 450000,
     category: "Hải Sản",
-    unit: "kg"
+    unit: "kg",
+    stock: 8
   },
   {
     id: "p11",
@@ -164,7 +175,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=2000&auto=format&fit=crop",
     price: 25000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 90
   },
   {
     id: "p12",
@@ -173,7 +185,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/736x/28/b2/3e/28b23e46d1ede2b64e084230bb77876e.jpg",
     price: 15000,
     category: "Trái Cây",
-    unit: "kg"
+    unit: "kg",
+    stock: 45
   },
   // === Nguyên liệu thực đơn thông minh ===
   {
@@ -183,7 +196,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/1200x/88/f6/81/88f681849b0745411fceacc4d99afcff.jpg",
     price: 18000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 70
   },
   {
     id: "p14",
@@ -192,7 +206,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1604977042946-1eecc30f269e?q=80&w=2000&auto=format&fit=crop",
     price: 12000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 100
   },
   {
     id: "p15",
@@ -201,7 +216,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=2000&auto=format&fit=crop",
     price: 32000,
     category: "Khác",
-    unit: "kg"
+    unit: "kg",
+    stock: 200
   },
   {
     id: "p16",
@@ -210,7 +226,8 @@ export const products: Product[] = [
     image: "https://tepbac.com/upload/news/ge_image/2022/05/ca-loc-1_1652239081.jpg",
     price: 95000,
     category: "Hải Sản",
-    unit: "kg"
+    unit: "kg",
+    stock: 18
   },
   {
     id: "p17",
@@ -219,7 +236,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/736x/19/dd/07/19dd078faef91d90cad85ffcf6aba6bb.jpg",
     price: 15000,
     category: "Khác",
-    unit: "bịch"
+    unit: "bịch",
+    stock: 60
   },
   {
     id: "p18",
@@ -228,7 +246,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1567375698348-5d9d5ae99de0?q=80&w=2000&auto=format&fit=crop",
     price: 10000,
     category: "Rau Củ",
-    unit: "bó"
+    unit: "bó",
+    stock: 150
   },
   {
     id: "p19",
@@ -237,7 +256,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/736x/63/60/12/63601251b622150db9548d8523bbfb5c.jpg",
     price: 14000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 55
   },
   {
     id: "p20",
@@ -246,7 +266,8 @@ export const products: Product[] = [
     image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=2000&auto=format&fit=crop",
     price: 35000,
     category: "Rau Củ",
-    unit: "kg"
+    unit: "kg",
+    stock: 35
   },
   {
     id: "p21",
@@ -255,7 +276,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/736x/5f/cf/4b/5fcf4bc0f50eedc184cc0d5122155304.jpg",
     price: 180000,
     category: "Thịt",
-    unit: "kg"
+    unit: "kg",
+    stock: 20
   },
   {
     id: "p22",
@@ -264,7 +286,8 @@ export const products: Product[] = [
     image: "https://i.pinimg.com/1200x/d8/99/b8/d899b8cd0803793bd47ee222458818f9.jpg",
     price: 28000,
     category: "Khác",
-    unit: "kg"
+    unit: "kg",
+    stock: 75
   }
 ];
 
