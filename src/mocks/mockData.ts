@@ -277,7 +277,7 @@ export const products: Product[] = [
     price: 180000,
     category: "Thịt",
     unit: "kg",
-    stock: 20
+    stock: 5
   },
   {
     id: "p22",

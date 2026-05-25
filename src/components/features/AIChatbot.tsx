@@ -2,13 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import { Bot, MessageCircle, X, Send, ShoppingCart, CheckCircle, Package } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Button } from '../ui/Button';
-import { products, mealPlans, menuIngredients } from '../../mocks/mockData';
+import { products, farms, mealPlans, menuIngredients } from '../../mocks/mockData';
 import { useCart } from '../../context/CartContext';
 import { useCartAnimation } from '../../context/CartAnimationContext';
 
 // ── System Prompt ─────────────────────────────────────────────────────────────
 const productList = products
-  .map(p => `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ Tồn kho:[${p.stock}]${p.unit}`)
+  .map(p => {
+    const farm = farms.find(f => f.id === p.farmId);
+    return `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ Tồn kho:[${p.stock}]${p.unit} Nông trại:[${farm?.name ?? 'N/A'}]`;
+  })
   .join('\n');
 
 
@@ -25,10 +28,11 @@ const menuList = mealPlans
   .join('\n');
 
 const systemInstruction = `Bạn là trợ lý ảo THÔNG MINH của Green Solution.
-Nhiệm vụ: Tư vấn nông sản và đề xuất thực đơn CHÍNH XÁC theo ngân sách.
+Nhiệm vụ: Hỗ trợ khách hàng tìm kiếm nông sản, tư vấn thực đơn và đề xuất sản phẩm CHÍNH XÁC theo ngân sách.
 
-DANH SÁCH SẢN PHẨM, GIÁ & TỒN KHO:
+DANH SÁCH SẢN PHẨM, GIÁ & TỒN KHO TẠI NÔNG TRẠI:
 ${productList}
+(Lưu ý: Tồn kho là số lượng hiện có tại các nông trại/cửa hàng cung cấp, KHÔNG phải kho của app.)
 
 THỰC ĐƠN MẪU:
 ${menuList}
@@ -42,10 +46,10 @@ ${menuList}
    - Nếu TỰ PHỐI đồ lẻ: Gắn [[CUSTOM_MENU:p1,p2,p3]] (liệt kê ít nhất 3-5 sản phẩm phù hợp).
    - KHÔNG bao giờ được quên thẻ tag này, nếu không khách sẽ không thể mua hàng.
 4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.
-5. QUẢN LÝ TỒN KHO:
-   - Nếu sản phẩm có Tồn kho <= 10: Cảnh báo "⚠️ Sắp hết hàng" khi gợi ý.
-   - Nếu sản phẩm có Tồn kho = 0: KHÔNG gợi ý sản phẩm đó, thông báo "❌ Tạm hết hàng".
-   - Ưu tiên gợi ý sản phẩm còn nhiều hàng.`;
+5. QUẢN LÝ TỒN KHO (của nông trại/cửa hàng):
+-trả lời rõ còn bao nhiêu kg
+- sản phẩm thuộc nông trại nào
+- Không trả lời nền nền tảng còn bao nhiêu hàng tồn, chỉ rõ ra nông trại nào còn bao nhiêu`;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Message {
@@ -180,7 +184,7 @@ export const AIChatbot: React.FC = () => {
     {
       id: 'msg-1',
       sender: 'bot',
-      text: 'Chào bạn! Mình là trợ lý GreenSolution, bạn muốn ăn gì hôm nay ?',
+      text: 'Chào bạn! Mình là trợ lý GreenSolution, bạn cần mình hỗ trợ gì nè? 🌿',
       timestamp: new Date()
     }
   ]);
