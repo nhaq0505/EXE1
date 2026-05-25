@@ -21,8 +21,8 @@ export interface Product {
 export const farms: Farm[] = [
   {
     id: "f1",
-    name: "Hợp Tác Xã Rau Thịt Sạch Đà Nẵng",
-    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2070&auto=format&fit=crop",
+    name: "Rau Xanh Đà Nẵng",
+    image: "	https://rauxanhdanang.com/wp-content/uploads/2023/04/rauxanhdanang.com-logo-1.png",
     description: "Trang trại hữu cơ xanh mút, cam kết canh tác bền vững và an toàn cho sức khỏe.",
     location: "Hoà Vang, Đà Nẵng",
     rating: 4.8,
@@ -31,7 +31,7 @@ export const farms: Farm[] = [
   {
     id: "f2",
     name: "Top Việt",
-    image: "https://i.pinimg.com/736x/ec/b4/19/ecb419060c1fc1e19265566c8bc536cd.jpg",
+    image: "	https://topvietmart.com/wp-content/uploads/2023/10/logo.png",
     description: "Chuyên cung cấp rựa quả, trái cây tươi theo mùa, thẳng từ vườn đến bàn ăn của bạn.",
     location: "Hoà Vang,Đà Nẵng",
     rating: 4.5,
@@ -39,8 +39,8 @@ export const farms: Farm[] = [
   },
   {
     id: "f3",
-    name: "Lạc Sơn Food",
-    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=2003&auto=format&fit=crop",
+    name: "DaNang Fantasic",
+    image: "https://danangfantasticity.com/wp-content/uploads/dfc/public/main-logo.png",
     description: "Thịt sạch và thực phẩm hữu cơ cao cấp từ vật nuôi thả tự nhiên, chăn thả ngoài trời.",
     location: "Đà Nẵng",
     rating: 4.9,
