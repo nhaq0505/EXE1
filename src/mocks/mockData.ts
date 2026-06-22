@@ -27,7 +27,7 @@ export const farms: Farm[] = [
     description: "Trang trại hữu cơ xanh mút, cam kết canh tác bền vững và an toàn cho sức khỏe.",
     location: "Hoà Vang, Đà Nẵng",
     rating: 4.8,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f2",
@@ -36,7 +36,7 @@ export const farms: Farm[] = [
     description: "Chuyên cung cấp rựa quả, trái cây tươi theo mùa, thẳng từ vườn đến bàn ăn của bạn.",
     location: "Hoà Vang,Đà Nẵng",
     rating: 4.5,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f3",
@@ -45,7 +45,7 @@ export const farms: Farm[] = [
     description: "Thịt sạch và thực phẩm hữu cơ cao cấp từ vật nuôi thả tự nhiên, chăn thả ngoài trời.",
     location: "Đà Nẵng",
     rating: 4.9,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f4",
@@ -54,7 +54,7 @@ export const farms: Farm[] = [
     description: "Trang trại trồng chè hữu cơ các loại, hái thủ công, chế biến truyền thống.",
     location: "Bảo Lộc, Lâm Đồng",
     rating: 4.7,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f5",
@@ -63,7 +63,16 @@ export const farms: Farm[] = [
     description: "Nuôi trồng thủy sản bền vững, cung cấp hải sản tươi ngon chất lượng cao.",
     location: "Đà Nẵng",
     rating: 4.6,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
+  },
+  {
+    id: "f6",
+    name: "Nông Sản Hoà Khương",
+    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=2000",
+    description: "Nông Sản Hoà Khương là đơn vị sản xuất chuyên cung cấp nông sản sạch theo mô hình từ nông trại đến bàn ăn tại Đà Nẵng.",
+    location: "Thôn 5, Hoà Khương, Hoà Vang, Đà Nẵng",
+    rating: 4.8,
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   }
 ];
 
@@ -339,6 +348,86 @@ export const products: Product[] = [
     category: "Rau Củ",
     unit: "bó",
     stock: 5
+  },
+  {
+    id: "p28",
+    farmId: "f6",
+    name: "Rau Muống Sạch",
+    image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?q=80&w=2000&auto=format&fit=crop",
+    price: 10000,
+    category: "Rau Củ",
+    unit: "bịch",
+    stock: 100
+  },
+  {
+    id: "p29",
+    farmId: "f6",
+    name: "Rau Mồng Tơi",
+    image: "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?q=80&w=2069&auto=format&fit=crop",
+    price: 10000,
+    category: "Rau Củ",
+    unit: "bịch",
+    stock: 100
+  },
+  {
+    id: "p30",
+    farmId: "f6",
+    name: "Cá Diêu Hồng",
+    image: "https://images.unsplash.com/photo-1534482421-64566f976cfa?q=80&w=2000&auto=format&fit=crop",
+    price: 95000,
+    category: "Hải Sản",
+    unit: "kg",
+    stock: 50
+  },
+  {
+    id: "p31",
+    farmId: "f6",
+    name: "Cá Basa Cắt Lát",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2000&auto=format&fit=crop",
+    price: 85000,
+    category: "Hải Sản",
+    unit: "kg",
+    stock: 50
+  },
+  {
+    id: "p32",
+    farmId: "f6",
+    name: "Gà H'mông",
+    image: "https://images.unsplash.com/photo-1587593729090-83c2410869bb?q=80&w=2000&auto=format&fit=crop",
+    price: 240000,
+    category: "Thịt",
+    unit: "kg",
+    stock: 20
+  },
+  {
+    id: "p33",
+    farmId: "f6",
+    name: "Gà Mía",
+    image: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?q=80&w=2000&auto=format&fit=crop",
+    price: 160000,
+    category: "Thịt",
+    unit: "kg",
+    stock: 20
+  },
+  {
+    id: "p34",
+    farmId: "f6",
+    name: "Gà Thả Vườn",
+    image: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?q=80&w=2000&auto=format&fit=crop",
+    price: 145000,
+    category: "Thịt",
+    unit: "kg",
+    stock: 25
+  },
+  {
+    id: "p35",
+    farmId: "f6",
+    name: "Gà Cúng Cánh Tiên",
+    image: "https://images.unsplash.com/photo-1598103494660-5f744837114f?q=80&w=2000&auto=format&fit=crop",
+    price: 320000,
+    category: "Thịt",
+    unit: "kg",
+    stock: 15
   }
 ];
 
