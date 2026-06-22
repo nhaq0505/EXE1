@@ -390,16 +390,6 @@ export const products: Product[] = [
     stock: 50
   },
   {
-    id: "p32",
-    farmId: "f6",
-    name: "Gà H'mông",
-    image: "https://images.unsplash.com/photo-1587593729090-83c2410869bb?q=80&w=2000&auto=format&fit=crop",
-    price: 240000,
-    category: "Thịt",
-    unit: "kg",
-    stock: 20
-  },
-  {
     id: "p33",
     farmId: "f6",
     name: "Gà Mía",
@@ -418,16 +408,6 @@ export const products: Product[] = [
     category: "Thịt",
     unit: "kg",
     stock: 25
-  },
-  {
-    id: "p35",
-    farmId: "f6",
-    name: "Gà Cúng Cánh Tiên",
-    image: "https://images.unsplash.com/photo-1598103494660-5f744837114f?q=80&w=2000&auto=format&fit=crop",
-    price: 320000,
-    category: "Thịt",
-    unit: "kg",
-    stock: 15
   }
 ];
 
