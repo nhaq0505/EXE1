@@ -48,6 +48,9 @@ export const MainLayout: React.FC = () => {
               <Link to="/meal-plans" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Thực đơn mẫu
               </Link>
+              <Link to="/partners" className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Đối tác
+              </Link>
             </nav>
 
             {/* Cart, Auth & Mobile Menu Button */}
@@ -121,6 +124,13 @@ export const MainLayout: React.FC = () => {
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
               >
                 Thực đơn mẫu
+              </Link>
+              <Link
+                to="/partners"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
+              >
+                Đối tác
               </Link>
 
               <div className="border-t border-gray-100 my-2 pt-2">

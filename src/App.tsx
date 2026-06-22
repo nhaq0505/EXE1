@@ -9,6 +9,7 @@ import Shop from './pages/Shop';
 import FarmDetail from './pages/FarmDetail';
 import Checkout from './pages/Checkout';
 import MealPlans from './pages/MealPlans';
+import Partners from './pages/Partners';
 
 import { CartAnimationProvider } from './context/CartAnimationContext';
 
@@ -25,6 +26,7 @@ export default function App() {
                 <Route path="/farms/:id" element={<FarmDetail />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/meal-plans" element={<MealPlans />} />
+                <Route path="/partners" element={<Partners />} />
                 {/* Add a catch-all route if needed */}
                 <Route path="*" element={<Home />} />
               </Route>

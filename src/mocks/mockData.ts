@@ -443,3 +443,22 @@ export const menuIngredients: Record<string, string[]> = {
   mp4: ["p9", "p10", "p21", "p20", "p6", "p1", "p2", "p22", "p12"],
 };
 
+export interface Partner {
+  id: string;
+  name: string;
+  logo: string;
+  description: string;
+  website: string;
+}
+
+export const partners: Partner[] = [
+  {
+    id: "part1",
+    name: "Đối Tác Chiến Lược Green Solution",
+    logo: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=300",
+    description: "Đối tác chiến lược đồng hành cùng Green Solution thúc đẩy nông nghiệp hữu cơ bền vững và giải pháp tiêu dùng thân thiện với môi trường.",
+    website: "https://www.facebook.com/share/1CgywBNB1T/?mibextid=wwXIfr"
+  }
+];
+
+
