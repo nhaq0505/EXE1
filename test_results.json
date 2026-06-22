@@ -1,0 +1,22 @@
+{
+  "test_1": {
+    "status": 200,
+    "response": "Chào bạn! Mình là trợ lý ảo THÔNG MINH của Green Solution, rất vui được hỗ trợ bạn.\n\nMình chuyên giúp bạn:\n*   Tìm kiếm nông sản tươi ngon.\n*   Tư vấn thực đơn hấp dẫn.\n*   Đề xuất sản phẩm phù hợp với ngân sách của bạn.\n\nHãy cho mình biết bạn cần gì nhé!",
+    "pass": true
+  },
+  "test_2": {
+    "status": 200,
+    "response": "Chào bạn! Hiện tại Green Solution có các loại rau củ tươi ngon sau:\n\n🥬 **Rau củ:**\n*   Cà Chua Hữu Cơ - 35.000đ/kg. Trong kho của bạn còn 1kg. (Nông trại: Rau Xanh Đà Nẵng)\n*   Cà Rốt Hữu Cơ - 25.000đ/kg. Trong kho của bạn còn 90kg. (Nông trại: Rau Xanh Đà Nẵng)\n*   Bí Đỏ Hữu Cơ - 18.000đ/kg. Trong kho của bạn còn 70kg. (Nông trại: Rau Xanh Đà Nẵng)\n*   Dưa Leo Tươi - 12.000đ/kg. Trong kho của bạn còn 100kg. (Nông trại: Top Việt)\n*   Rau Muống Sạch - 10.000đ/bó. Trong kho của bạn còn 150 bó. (Nông trại: Top Việt)\n*   Khổ Qua (Mướp Đắng) - 14.000đ/kg. Trong kho của bạn còn 55kg. (Nông trại: Top Việt)\n*   Bông Cải Xanh & Nấm - 35.000đ/kg. Trong kho của bạn còn 35kg. (Nông trại: Rau Xanh Đà Nẵng)\n*   Xà Lách Tươi - 20.000đ/bó. Trong kho của bạn còn 4 bó. (Nông trại: Rau Xanh Đà Nẵng)\n*   Rau Ngò Tươi - 8.000đ/bó. Trong kho của bạn còn 5 bó. (Nông trại: Rau Xanh Đà Nẵng)\n\nBạn muốn tham khảo thêm sản phẩm nào không ạ?\n[[CUSTOM_MENU:p1,p11,p13,p14,p18]]",
+    "pass": true
+  },
+  "test_3": {
+    "status": 200,
+    "response": "Chào bạn, đây là gợi ý giỏ quà rau củ khoảng 200.000đ từ Green Solution, đa dạng và tươi ngon nhé:\n\n🥬 Rau củ:\n*   Cà Chua Hữu Cơ (1kg) - 35.000đ\n*   Cà Rốt Hữu Cơ (1kg) - 25.000đ\n*   Bí Đỏ Hữu Cơ (1kg) - 18.000đ\n*   Dưa Leo Tươi (1kg) - 12.000đ\n*   Rau Muống Sạch (1 bó) - 10.000đ\n*   Khổ Qua (Mướp Đắng) (1kg) - 14.000đ\n*   Bông Cải Xanh & Nấm (1kg) - 35.000đ\n*   Xà Lách Tươi (1 bó) - 20.000đ\n*   Rau Ngò Tươi (1 bó) - 8.000đ\n\nTổng cộng: 177.000đ. Giỏ quà này sẽ giúp bạn có nhiều lựa chọn cho bữa ăn gia đình.\n\n[[CUSTOM_MENU:p1,p11,p13,p14,p18,p19,p20,p2,p27]]",
+    "pass": true
+  },
+  "test_4": {
+    "status": 401,
+    "response": "",
+    "pass": true
+  }
+}

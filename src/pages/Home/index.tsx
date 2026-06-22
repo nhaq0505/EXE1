@@ -1,15 +1,36 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Sprout, Leaf, ArrowRight } from 'lucide-react';
+import { Sprout, Leaf, ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { FarmCard } from '../../components/features/FarmCard';
 import { ProductCard } from '../../components/features/ProductCard';
-import { farms, products } from '../../mocks/mockData';
+import { farmService } from '../../services/farmService';
+import { productService } from '../../services/productService';
+import { type Farm, type Product } from '../../mocks/mockData';
 
 export default function Home() {
-  // Lấy 3 nông trại đầu tiên
-  const featuredFarms = farms.slice(0, 3);
-  // Lấy 4 sản phẩm đầu tiên
-  const freshProducts = products.slice(0, 4);
+  const [featuredFarms, setFeaturedFarms] = useState<Farm[]>([]);
+  const [freshProducts, setFreshProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadHomeData = async () => {
+      try {
+        const [farmsData, productsData] = await Promise.all([
+          farmService.getFeaturedFarms(),
+          productService.getFeaturedProducts()
+        ]);
+        setFeaturedFarms(farmsData);
+        setFreshProducts(productsData);
+      } catch (err) {
+        console.error('Failed to load home data from API:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadHomeData();
+  }, []);
 
   return (
     <div className="bg-white">
@@ -41,66 +62,77 @@ export default function Home() {
 
       {/* Main Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
-        
-        {/* 2. Nông trại nổi bật (Featured Farms) */}
-        <section>
-          <div className="flex items-center justify-between xl:justify-start gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-2 rounded-lg">
-                <Sprout className="w-6 h-6 text-green-600" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Nông trại tiêu biểu
-              </h2>
-            </div>
-            <Link to="/farms" className="hidden sm:flex items-center text-green-600 font-medium hover:text-green-700 transition-colors">
-              Xem tất cả <ArrowRight className="w-4 h-4 ml-1" />
-            </Link>
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-500">
+            <Loader2 className="w-10 h-10 animate-spin text-green-600" />
+            <p className="text-sm font-medium">Đang tải nông trại & nông sản sạch...</p>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredFarms.map(farm => (
-              <FarmCard key={farm.id} farm={farm} />
-            ))}
-          </div>
-          
-          <div className="mt-8 text-center sm:hidden">
-            <Link to="/farms">
-              <Button variant="outline" className="w-full">
-                Xem tất cả Nông trại
-              </Button>
-            </Link>
-          </div>
-        </section>
+        ) : (
+          <>
+            {/* 2. Nông trại nổi bật (Featured Farms) */}
+            {featuredFarms.length > 0 && (
+              <section>
+                <div className="flex items-center justify-between xl:justify-start gap-4 mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-green-100 p-2 rounded-lg">
+                      <Sprout className="w-6 h-6 text-green-600" />
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                      Nông trại tiêu biểu
+                    </h2>
+                  </div>
+                  <Link to="/farms" className="hidden sm:flex items-center text-green-600 font-medium hover:text-green-700 transition-colors">
+                    Xem tất cả <ArrowRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {featuredFarms.map(farm => (
+                    <FarmCard key={farm.id} farm={farm} />
+                  ))}
+                </div>
+                
+                <div className="mt-8 text-center sm:hidden">
+                  <Link to="/farms">
+                    <Button variant="outline" className="w-full">
+                      Xem tất cả Nông trại
+                    </Button>
+                  </Link>
+                </div>
+              </section>
+            )}
 
-        {/* 3. Nông sản mới thu hoạch (Fresh Products) */}
-        <section>
-          <div className="flex items-center justify-between xl:justify-start gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-2 rounded-lg">
-                <Leaf className="w-6 h-6 text-green-600" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Mới thu hoạch hôm nay
-              </h2>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {freshProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          
-          <div className="mt-10 text-center">
-            <Link to="/farms">
-              <Button variant="outline" size="lg" className="min-w-[200px]">
-                Xem thêm sản phẩm
-              </Button>
-            </Link>
-          </div>
-        </section>
-
+            {/* 3. Nông sản mới thu hoạch (Fresh Products) */}
+            {freshProducts.length > 0 && (
+              <section>
+                <div className="flex items-center justify-between xl:justify-start gap-4 mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-green-100 p-2 rounded-lg">
+                      <Leaf className="w-6 h-6 text-green-600" />
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                      Mới thu hoạch hôm nay
+                    </h2>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {freshProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+                
+                <div className="mt-10 text-center">
+                  <Link to="/farms">
+                    <Button variant="outline" size="lg" className="min-w-[200px]">
+                      Xem thêm sản phẩm
+                    </Button>
+                  </Link>
+                </div>
+              </section>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

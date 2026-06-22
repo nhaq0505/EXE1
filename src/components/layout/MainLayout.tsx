@@ -54,6 +54,22 @@ export const MainLayout: React.FC = () => {
             <div className="flex items-center gap-4">
               {user ? (
                 <div className="hidden md:flex items-center gap-3">
+                  {(user.role === 'FarmOwner' || user.role === 'farmowner') && (
+                    <Link
+                      to="/farm-owner/dashboard"
+                      className="inline-flex items-center justify-center px-4 py-1.5 border border-green-600 rounded-full text-xs font-bold text-green-600 hover:bg-green-50 transition-colors mr-1"
+                    >
+                      Kênh Người Bán
+                    </Link>
+                  )}
+                  {user.role === 'Admin' && (
+                    <Link
+                      to="/admin/dashboard"
+                      className="inline-flex items-center justify-center px-4 py-1.5 border border-blue-600 rounded-full text-xs font-bold text-blue-600 hover:bg-blue-50 transition-colors mr-1"
+                    >
+                      Kênh Admin
+                    </Link>
+                  )}
                   <div className="flex items-center gap-2 text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full">
                     <UserIcon className="w-4 h-4 text-gray-500" />
                     {user.name}
@@ -125,17 +141,37 @@ export const MainLayout: React.FC = () => {
 
               <div className="border-t border-gray-100 my-2 pt-2">
                 {user ? (
-                  <div className="flex items-center justify-between px-3 py-2">
-                    <div className="flex items-center gap-2">
-                      <UserIcon className="w-5 h-5 text-gray-500" />
-                      <span className="text-base font-medium text-gray-700">{user.name}</span>
+                  <div className="flex flex-col gap-2">
+                    {(user.role === 'FarmOwner' || user.role === 'farmowner') && (
+                      <Link
+                        to="/farm-owner/dashboard"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block w-full text-center py-2 bg-green-50 text-green-700 rounded-xl font-bold text-sm hover:bg-green-100 transition-all"
+                      >
+                        Vào Kênh Người Bán
+                      </Link>
+                    )}
+                    {user.role === 'Admin' && (
+                      <Link
+                        to="/admin/dashboard"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block w-full text-center py-2 bg-blue-50 text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-100 transition-all"
+                      >
+                        Vào Kênh Quản Trị Admin
+                      </Link>
+                    )}
+                    <div className="flex items-center justify-between px-3 py-2 mt-1 border-t border-gray-55/50">
+                      <div className="flex items-center gap-2">
+                        <UserIcon className="w-5 h-5 text-gray-500" />
+                        <span className="text-base font-medium text-gray-700">{user.name}</span>
+                      </div>
+                      <button
+                        onClick={() => { logout(); setIsMobileMenuOpen(false); }}
+                        className="text-red-500 text-sm font-medium px-3 py-1.5 hover:bg-red-50 rounded-md"
+                      >
+                        Đăng xuất
+                      </button>
                     </div>
-                    <button
-                      onClick={() => { logout(); setIsMobileMenuOpen(false); }}
-                      className="text-red-500 text-sm font-medium px-3 py-1.5 hover:bg-red-50 rounded-md"
-                    >
-                      Đăng xuất
-                    </button>
                   </div>
                 ) : (
                   <button

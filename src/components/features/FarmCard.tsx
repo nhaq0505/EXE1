@@ -15,6 +15,7 @@ export const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
           <img 
             src={farm.image} 
             alt={farm.name} 
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>

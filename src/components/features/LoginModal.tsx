@@ -1,22 +1,40 @@
 import { useState } from 'react';
-import { X, Lock, Mail, Loader2 } from 'lucide-react';
+import { X, Lock, Mail, Loader2, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginModal = () => {
-  const { isLoginModalOpen, closeLoginModal, login } = useAuth();
+  const { isLoginModalOpen, closeLoginModal, login, register } = useAuth();
+  const navigate = useNavigate();
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   if (!isLoginModalOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await login(email, password);
-    setIsLoading(false);
-    // Modal sẽ được close tự động từ AuthContext
+    setErrorMsg('');
+    try {
+      let loggedInUser;
+      if (isRegisterMode) {
+        loggedInUser = await register(name, email, password);
+      } else {
+        loggedInUser = await login(email, password);
+      }
+      if (loggedInUser && loggedInUser.role === 'FarmOwner') {
+        navigate('/farm-owner/dashboard');
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Có lỗi xảy ra, vui lòng thử lại.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -30,7 +48,9 @@ export const LoginModal = () => {
       {/* Modal */}
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-5 border-b border-gray-100 bg-gray-50/50">
-          <h2 className="text-xl font-bold text-gray-900">Đăng nhập tài khoản</h2>
+          <h2 className="text-xl font-bold text-gray-900">
+            {isRegisterMode ? 'Đăng ký tài khoản' : 'Đăng nhập tài khoản'}
+          </h2>
           <button 
             onClick={closeLoginModal}
             className="p-1.5 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-gray-900"
@@ -40,6 +60,31 @@ export const LoginModal = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
+          {errorMsg && (
+            <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
+              {errorMsg}
+            </div>
+          )}
+
+          {isRegisterMode && (
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium text-gray-700">Tên của bạn</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <UserIcon className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                  placeholder="Nguyễn Văn A"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-gray-700">Email của bạn</label>
             <div className="relative">
@@ -82,16 +127,38 @@ export const LoginModal = () => {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Đang đăng nhập...
+                {isRegisterMode ? 'Đang đăng ký...' : 'Đang đăng nhập...'}
               </>
             ) : (
-              'Đăng nhập'
+              isRegisterMode ? 'Đăng ký' : 'Đăng nhập'
             )}
           </Button>
 
-          <p className="text-center text-sm text-gray-500 mt-4">
-            (Bản demo: nhập email/pass bất kỳ để test)
-          </p>
+          <div className="text-center text-sm text-gray-500 mt-4">
+            {isRegisterMode ? (
+              <span>
+                Đã có tài khoản?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setIsRegisterMode(false); setErrorMsg(''); }}
+                  className="text-green-600 font-semibold hover:underline"
+                >
+                  Đăng nhập ngay
+                </button>
+              </span>
+            ) : (
+              <span>
+                Chưa có tài khoản?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setIsRegisterMode(true); setErrorMsg(''); }}
+                  className="text-green-600 font-semibold hover:underline"
+                >
+                  Đăng ký tài khoản
+                </button>
+              </span>
+            )}
+          </div>
         </form>
       </div>
     </div>

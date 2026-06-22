@@ -1,55 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bot, MessageCircle, X, Send, ShoppingCart, CheckCircle, Package } from 'lucide-react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Button } from '../ui/Button';
-import { products, farms, mealPlans, menuIngredients } from '../../mocks/mockData';
+import { products, mealPlans, menuIngredients } from '../../mocks/mockData';
 import { useCart } from '../../context/CartContext';
 import { useCartAnimation } from '../../context/CartAnimationContext';
+import { aiService, type ChatMessage } from '../../services/aiService';
 
-// ── System Prompt ─────────────────────────────────────────────────────────────
-const productList = products
-  .map(p => {
-    const farm = farms.find(f => f.id === p.farmId);
-    return `- ID:[${p.id}] Tên:[${p.name}] Giá:[${p.price}]đ Tồn kho:[${p.stock}]${p.unit} Nông trại:[${farm?.name ?? 'N/A'}]`;
-  })
-  .join('\n');
-
-
-
-const menuList = mealPlans
-  .map(m => {
-    const ingredientIds = (menuIngredients as Record<string, string[]>)[m.id] ?? [];
-    const price = ingredientIds.reduce((sum, id) => {
-      const p = products.find(prod => prod.id === id);
-      return sum + (p?.price || 0);
-    }, 0);
-    return `- [ID:${m.id}] ${m.title} (${m.targetAudience}) - GIÁ: ${price.toLocaleString('vi-VN')}đ: ${m.dishes.join(', ')}`;
-  })
-  .join('\n');
-
-const systemInstruction = `Bạn là trợ lý ảo THÔNG MINH của Green Solution.
-Nhiệm vụ: Hỗ trợ khách hàng tìm kiếm nông sản, tư vấn thực đơn và đề xuất sản phẩm CHÍNH XÁC theo ngân sách.
-
-DANH SÁCH SẢN PHẨM, GIÁ & TỒN KHO TẠI NÔNG TRẠI:
-${productList}
-(Lưu ý: Tồn kho là số lượng hiện có tại các nông trại/cửa hàng cung cấp, KHÔNG phải kho của app.)
-
-THỰC ĐƠN MẪU:
-${menuList}
-
-=== QUY TẮC PHẢN HỒI (BẮT BUỘC) ===
-1. Khi liệt kê sản phẩm/nông trại: Dùng icon (vd: 🥬 Rau củ) và dấu gạch đầu dòng (*). Trình bày sạch sẽ.
-2. Khi gợi ý theo ngân sách (vd: 200k): PHẢI chọn món lẻ hoặc thực đơn sao cho Tổng Giá < Ngân sách. 
-3. THẺ HÀNH ĐỘNG (QUAN TRỌNG NHẤT): 
-   - Mọi câu trả lời có gợi ý sản phẩm/thực đơn PHẢI kết thúc bằng một thẻ tag ở dòng cuối cùng.
-   - Nếu dùng menu CÓ SẴN: Gắn [[MENU:mpX]]
-   - Nếu TỰ PHỐI đồ lẻ: Gắn [[CUSTOM_MENU:p1,p2,p3]] (liệt kê ít nhất 3-5 sản phẩm phù hợp).
-   - KHÔNG bao giờ được quên thẻ tag này, nếu không khách sẽ không thể mua hàng.
-4. Trả lời ngắn gọn, tự nhiên, tối đa 100 từ.
-5. QUẢN LÝ TỒN KHO (của nông trại/cửa hàng):
--trả lời rõ còn bao nhiêu kg
-- Form trả lời là : "Trong kho của bạn còn ? Kg" để có thể biết và nhập hàng"
-- `;
+const MENU_TAG_REGEX = /\[\[MENU:(mp\d+)\]\]/;
+const CUSTOM_MENU_TAG_REGEX = /\[\[CUSTOM_MENU:([\w,]+)\]\]/;
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Message {
@@ -168,11 +126,6 @@ function CustomMenuCard({ productIds }: { productIds: string[] }) {
   );
 }
 
-// ── Gemini Config ─────────────────────────────────────────────────────────────
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
-const MENU_TAG_REGEX = /\[\[MENU:(mp\d+)\]\]/;
-const CUSTOM_MENU_TAG_REGEX = /\[\[CUSTOM_MENU:([\w,]+)\]\]/;
-
 // ── Component ─────────────────────────────────────────────────────────────────
 export const AIChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -211,27 +164,7 @@ export const AIChatbot: React.FC = () => {
     setInput('');
     setIsTyping(true);
 
-    if (!apiKey) {
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          id: (Date.now() + 1).toString(),
-          sender: 'bot',
-          text: 'Chế độ demo: Chưa cấu hình API Key.',
-          timestamp: new Date(),
-          isError: true,
-        }]);
-        setIsTyping(false);
-      }, 600);
-      return;
-    }
-
     try {
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({
-        model: 'gemini-2.5-flash',
-        systemInstruction
-      });
-
       const allMapped = messages
         .filter(m => !m.isError)
         .map(m => ({
@@ -239,11 +172,11 @@ export const AIChatbot: React.FC = () => {
           parts: [{ text: m.text + (m.suggestedPlanId ? ` [[MENU:${m.suggestedPlanId}]]` : '') + (m.customProductIds ? ` [[CUSTOM_MENU:${m.customProductIds.join(',')}]]` : '') }],
         }));
       const firstUserIdx = allMapped.findIndex(m => m.role === 'user');
-      const history = firstUserIdx >= 0 ? allMapped.slice(firstUserIdx) : [];
+      const history = (firstUserIdx >= 0 ? allMapped.slice(firstUserIdx) : []) as ChatMessage[];
 
-      const chat = model.startChat({ history });
-      const result = await chat.sendMessage(userText);
-      const rawText = result.response.text();
+      // Gọi qua backend proxy AI thay vì SDK trực tiếp trên client
+      const response = await aiService.chat(history, userText);
+      const rawText = response.text;
 
       console.log('🤖 AI Raw Response:', rawText);
 
@@ -277,7 +210,7 @@ export const AIChatbot: React.FC = () => {
         sender: 'bot',
         text: isQuotaError
           ? '🚀 Nhắn hơi nhanh rồi! Bạn đợi khoảng 10 giây rồi thử lại nhé.'
-          : '😔 Có lỗi kết nối AI.',
+          : '😔 Có lỗi kết nối AI thông qua máy chủ.',
         timestamp: new Date(),
         isError: true,
       }]);
@@ -385,7 +318,7 @@ export const AIChatbot: React.FC = () => {
             </Button>
           </form>
           <div className="text-center mt-2 text-[9px] text-gray-400">
-            Powered by Google Gemini 2.5 Flash
+            Powered by Green Solution Secure API
           </div>
         </div>
       </div>

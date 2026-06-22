@@ -28,3 +28,11 @@ dist-ssr
 .env.local
 .env.*.local
 
+
+# .NET Build outputs
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.userosscache
+*.sln.docstates

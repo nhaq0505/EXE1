@@ -1,6 +1,8 @@
-import { mealPlans } from '../../mocks/mockData';
+import { useState, useEffect } from 'react';
 import { MealPlanCard } from '../../components/features/MealPlanCard';
-import { Sparkles, Leaf, Recycle, TrendingDown } from 'lucide-react';
+import { Sparkles, Leaf, Recycle, TrendingDown, Loader2 } from 'lucide-react';
+import { mealPlanService } from '../../services/mealPlanService';
+import { type MealPlan } from '../../mocks/mockData';
 
 const highlights = [
   { icon: Leaf, label: 'Định lượng chính xác', desc: 'Cân đúng Kcal cho từng thành viên' },
@@ -10,6 +12,24 @@ const highlights = [
 ];
 
 const MealPlans: React.FC = () => {
+  const [plans, setPlans] = useState<MealPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadMealPlans = async () => {
+      setIsLoading(true);
+      try {
+        const data = await mealPlanService.getMealPlans();
+        setPlans(data);
+      } catch (err) {
+        console.error('Failed to load meal plans from API:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadMealPlans();
+  }, []);
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero */}
@@ -49,18 +69,25 @@ const MealPlans: React.FC = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Chọn thực đơn phù hợp</h2>
-            <p className="text-gray-500 text-sm mt-1">4 gói được thiết kế riêng theo quy mô gia đình</p>
+            <p className="text-gray-500 text-sm mt-1">Các gói được thiết kế riêng theo quy mô gia đình</p>
           </div>
           <span className="hidden md:inline-block bg-green-50 text-green-700 text-xs font-semibold border border-green-200 px-4 py-2 rounded-full">
-            {mealPlans.length} gói thực đơn
+            {plans.length} gói thực đơn
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          {mealPlans.map((plan) => (
-            <MealPlanCard key={plan.id} plan={plan} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-400">
+            <Loader2 className="w-8 h-8 animate-spin text-green-600" />
+            <p className="text-sm font-medium">Đang thiết lập thực đơn thông minh...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {plans.map((plan) => (
+              <MealPlanCard key={plan.id} plan={plan} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

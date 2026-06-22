@@ -1,18 +1,45 @@
-
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Star, ArrowLeft, ShoppingBasket, Video, Sprout } from 'lucide-react';
-import { farms, products } from '../../mocks/mockData';
+import { MapPin, Star, ArrowLeft, ShoppingBasket, Video, Sprout, Loader2 } from 'lucide-react';
+import { farmService } from '../../services/farmService';
 import { ProductCard } from '../../components/features/ProductCard';
 import { Button } from '../../components/ui/Button';
+import { type Farm, type Product } from '../../mocks/mockData';
 
 export default function FarmDetail() {
   const { id } = useParams<{ id: string }>();
+  const [farm, setFarm] = useState<Farm | null>(null);
+  const [farmProducts, setFarmProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Lấy thông tin nông trại
-  const farm = farms.find(f => f.id === id);
+  useEffect(() => {
+    const loadFarmDetails = async () => {
+      if (!id) return;
+      setIsLoading(true);
+      try {
+        const [farmData, productsData] = await Promise.all([
+          farmService.getFarmById(id),
+          farmService.getProductsByFarmId(id)
+        ]);
+        setFarm(farmData);
+        setFarmProducts(productsData);
+      } catch (err) {
+        console.error('Failed to load farm details:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadFarmDetails();
+  }, [id]);
 
-  // Lấy danh sách sản phẩm thuộc nông trại này
-  const farmProducts = products.filter(p => p.farmId === id);
+  if (isLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center flex flex-col items-center justify-center gap-3">
+        <Loader2 className="w-10 h-10 animate-spin text-green-600" />
+        <p className="text-gray-500 font-medium">Đang tải thông tin nông trại...</p>
+      </div>
+    );
+  }
 
   // Nếu không tìm thấy nông trại
   if (!farm) {

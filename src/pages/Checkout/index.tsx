@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
+import { orderService } from '../../services/orderService';
 
 // ────────────────────────────────────────────────────────────────────────────────
 // Success Screen Component
@@ -97,24 +98,68 @@ export default function Checkout() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [savedTotal, setSavedTotal] = useState('');
 
+  // Controlled Form States
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [notes, setNotes] = useState('');
+
   // Scroll lên đầu trang khi vào Checkout
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  // Prefill user info when logged in
+  useEffect(() => {
+    if (user) {
+      setName(user.name || '');
+      // If the User interface contains phone or address in the backend, prefill them
+      if ((user as any).phone) setPhone((user as any).phone);
+      if ((user as any).address) setAddress((user as any).address);
+    }
+  }, [user]);
+
   const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalAmount);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) {
+      openLoginModal();
+      return;
+    }
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      const orderItems = cart.map(item => ({
+        productId: item.id,
+        quantity: item.quantity,
+      }));
+
+      // Gọi API đặt hàng thực tế
+      const response = await orderService.createOrder({
+        receiverName: name,
+        phone: phone,
+        address: address,
+        notes: notes || undefined,
+        items: orderItems,
+      });
+
+      setSavedTotal(formattedTotal);
+      await clearCart();
+
+      // Chuyển hướng trực tiếp trình duyệt của user đến link thanh toán PayOS
+      if (response.checkoutUrl) {
+        window.location.href = response.checkoutUrl;
+      } else {
+        setOrderPlaced(true);
+      }
+    } catch (err: any) {
+      console.error('Checkout error:', err);
+      alert(err.message || 'Thanh toán thất bại. Vui lòng kiểm tra lại thông tin!');
+    } finally {
       setIsSubmitting(false);
-      setSavedTotal(formattedTotal); // lưu lại trước khi clearCart
-      clearCart();
-      setOrderPlaced(true);
-    }, 1500);
+    }
   };
 
   // ── SUCCESS SCREEN ──
@@ -167,26 +212,53 @@ export default function Checkout() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-1.5">
                       <label htmlFor="name" className="text-sm font-medium text-gray-700">Họ và tên <span className="text-red-500">*</span></label>
-                      <input required type="text" id="name" placeholder="Nguyễn Văn A"
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" />
+                      <input 
+                        required 
+                        type="text" 
+                        id="name" 
+                        placeholder="Nguyễn Văn A"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" 
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <label htmlFor="phone" className="text-sm font-medium text-gray-700">Số điện thoại <span className="text-red-500">*</span></label>
-                      <input required type="tel" id="phone" placeholder="0912 345 678"
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" />
+                      <input 
+                        required 
+                        type="tel" 
+                        id="phone" 
+                        placeholder="0912 345 678"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" 
+                      />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
                     <label htmlFor="address" className="text-sm font-medium text-gray-700">Địa chỉ giao hàng <span className="text-red-500">*</span></label>
-                    <input required type="text" id="address" placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện..."
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" />
+                    <input 
+                      required 
+                      type="text" 
+                      id="address" 
+                      placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện..."
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" 
+                    />
                   </div>
 
                   <div className="space-y-1.5">
                     <label htmlFor="notes" className="text-sm font-medium text-gray-700">Ghi chú thêm</label>
-                    <textarea id="notes" rows={3} placeholder="Giao trong giờ hành chính, gọi trước khi giao..."
-                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all resize-none" />
+                    <textarea 
+                      id="notes" 
+                      rows={3} 
+                      placeholder="Giao trong giờ hành chính, gọi trước khi giao..."
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all resize-none" 
+                    />
                   </div>
                 </form>
               </CardContent>
@@ -255,7 +327,7 @@ export default function Checkout() {
                         ) : (
                           <>
                             <CheckCircle className="w-5 h-5 mr-2" />
-                            Xác nhận Đặt hàng
+                            Xác nhận Đặt hàng & Thanh toán PayOS
                           </>
                         )}
                       </Button>

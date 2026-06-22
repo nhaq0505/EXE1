@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="GreenSolution.API/GreenSolution.API.csproj" />
+  <Project Path="GreenSolution.Core/GreenSolution.Core.csproj" />
+  <Project Path="GreenSolution.Infrastructure/GreenSolution.Infrastructure.csproj" />
+</Solution>

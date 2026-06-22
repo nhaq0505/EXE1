@@ -27,7 +27,7 @@ export const farms: Farm[] = [
     description: "Trang trại hữu cơ xanh mút, cam kết canh tác bền vững và an toàn cho sức khỏe.",
     location: "Hoà Vang, Đà Nẵng",
     rating: 4.8,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f2",
@@ -36,7 +36,7 @@ export const farms: Farm[] = [
     description: "Chuyên cung cấp rựa quả, trái cây tươi theo mùa, thẳng từ vườn đến bàn ăn của bạn.",
     location: "Hoà Vang,Đà Nẵng",
     rating: 4.5,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f3",
@@ -45,7 +45,7 @@ export const farms: Farm[] = [
     description: "Thịt sạch và thực phẩm hữu cơ cao cấp từ vật nuôi thả tự nhiên, chăn thả ngoài trời.",
     location: "Đà Nẵng",
     rating: 4.9,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f4",
@@ -54,7 +54,7 @@ export const farms: Farm[] = [
     description: "Trang trại trồng chè hữu cơ các loại, hái thủ công, chế biến truyền thống.",
     location: "Bảo Lộc, Lâm Đồng",
     rating: 4.7,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   },
   {
     id: "f5",
@@ -63,7 +63,7 @@ export const farms: Farm[] = [
     description: "Nuôi trồng thủy sản bền vững, cung cấp hải sản tươi ngon chất lượng cao.",
     location: "Đà Nẵng",
     rating: 4.6,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-uhd_2560_1440_30fps.mp4"
+    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
   }
 ];
 

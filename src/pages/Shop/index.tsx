@@ -1,27 +1,71 @@
-import { useState } from 'react';
-import { Search, Sprout, Leaf } from 'lucide-react';
-import { farms, products } from '../../mocks/mockData';
+import { useState, useEffect } from 'react';
+import { Search, Sprout, Leaf, Loader2 } from 'lucide-react';
 import { FarmCard } from '../../components/features/FarmCard';
 import { ProductCard } from '../../components/features/ProductCard';
 import { Button } from '../../components/ui/Button';
-
-const CATEGORIES = ['Tất cả', 'Vegetables', 'Fruits', 'Meat', 'Khác'];
+import { farmService } from '../../services/farmService';
+import { productService } from '../../services/productService';
+import { type Farm, type Product } from '../../mocks/mockData';
 
 export default function Shop() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('Tất cả');
+  const [categories, setCategories] = useState<string[]>(['Tất cả']);
+  
+  const [farms, setFarms] = useState<Farm[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const [page] = useState(1);
+  const [limit] = useState(100); // Load matching batch
 
-  // Lọc Farm theo searchTerm
+  // Tải danh mục thực tế và danh sách farm
+  useEffect(() => {
+    const loadStaticData = async () => {
+      try {
+        const [cats, allFarms] = await Promise.all([
+          productService.getCategories(),
+          farmService.getFarms()
+        ]);
+        setCategories(cats);
+        setFarms(allFarms);
+      } catch (err) {
+        console.error('Failed to load shop categories/farms:', err);
+      }
+    };
+    loadStaticData();
+  }, []);
+
+  // Gọi API tải danh sách sản phẩm (hỗ trợ search, category, page, limit)
+  useEffect(() => {
+    const loadProducts = async () => {
+      setIsLoading(true);
+      try {
+        const items = await productService.getProducts({
+          page,
+          limit,
+          search: searchTerm || undefined,
+          category: activeCategory !== 'Tất cả' ? activeCategory : undefined
+        });
+        setProducts(items);
+      } catch (err) {
+        console.error('Failed to fetch products:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const delayDebounceFn = setTimeout(() => {
+      loadProducts();
+    }, 300);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm, activeCategory, page, limit]);
+
+  // Lọc Farm theo searchTerm cục bộ hoặc từ API
   const filteredFarms = farms.filter(farm => 
     farm.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  // Lọc Product theo searchTerm VÀ activeCategory
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = activeCategory === 'Tất cả' || product.category === activeCategory;
-    return matchesSearch && matchesCategory;
-  });
 
   return (
     <div className="bg-white min-h-screen pb-20">
@@ -50,7 +94,7 @@ export default function Shop() {
             {/* Bộ lọc danh mục (Cuộn ngang trên mobile) */}
             <div className="w-full md:w-auto overflow-x-auto pb-2 md:pb-0 -mx-4 md:mx-0 px-4 md:px-0">
               <div className="flex gap-2 min-w-max">
-                {CATEGORIES.map(category => (
+                {categories.map(category => (
                   <Button
                     key={category}
                     variant={activeCategory === category ? 'default' : 'outline'}
@@ -59,9 +103,10 @@ export default function Shop() {
                       activeCategory === category ? 'shadow-md' : 'border-gray-200'
                     }`}
                   >
-                    {category === 'Vegetables' ? 'Rau củ' : 
-                     category === 'Fruits' ? 'Trái cây' : 
-                     category === 'Meat' ? 'Thịt' : category}
+                    {category === 'Vegetables' || category === 'Rau Củ' ? 'Rau củ' : 
+                     category === 'Fruits' || category === 'Trái Cây' ? 'Trái cây' : 
+                     category === 'Meat' || category === 'Thịt' ? 'Thịt' : 
+                     category === 'Hải Sản' ? 'Hải sản' : category}
                   </Button>
                 ))}
               </div>
@@ -100,14 +145,19 @@ export default function Shop() {
                 <Leaf className="w-6 h-6 text-green-600" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                Sản phẩm tìm thấy ({filteredProducts.length})
+                Sản phẩm tìm thấy ({products.length})
               </h2>
             </div>
           </div>
           
-          {filteredProducts.length > 0 ? (
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-20 gap-3 text-gray-400">
+              <Loader2 className="w-8 h-8 animate-spin text-green-600" />
+              <p className="text-sm font-medium">Đang tìm sản phẩm ngon lành...</p>
+            </div>
+          ) : products.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredProducts.map(product => (
+              {products.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
