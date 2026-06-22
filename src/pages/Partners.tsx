@@ -1,6 +1,6 @@
 import React from 'react';
 import { partners } from '../mocks/mockData';
-import { ExternalLink, Handshake, ShieldCheck, Heart } from 'lucide-react';
+import { ExternalLink, Handshake, ShieldCheck, Heart, MapPin, Phone } from 'lucide-react';
 
 const highlights = [
   { icon: ShieldCheck, label: 'Đồng hành uy tín', desc: 'Hợp tác chặt chẽ cùng các doanh nghiệp định hướng bền vững' },
@@ -69,16 +69,49 @@ const Partners: React.FC = () => {
                 </div>
                 
                 <div className="p-6 flex flex-col flex-grow justify-between">
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-lg text-gray-900 group-hover:text-green-600 transition-colors">
-                      {partner.name}
-                    </h3>
-                    <p className="text-gray-600 text-xs leading-relaxed">
-                      {partner.description}
-                    </p>
-                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-bold text-lg text-gray-900 group-hover:text-green-600 transition-colors">
+                        {partner.name}
+                      </h3>
+                      <p className="text-gray-600 text-xs leading-relaxed mt-1">
+                        {partner.description}
+                      </p>
+                    </div>
 
-                  <div className="pt-6 mt-6 border-t border-gray-100">
+                    {/* Address & Contact Info */}
+                    <div className="space-y-3 text-xs text-gray-600 bg-gray-50 p-4 rounded-xl border border-gray-100/80">
+                      {partner.farmAddress && (
+                        <div className="space-y-1">
+                          <p className="font-bold text-[10px] uppercase text-green-700 tracking-wider flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5" /> Nông trại
+                          </p>
+                          <p className="leading-relaxed pl-4.5 text-gray-700">{partner.farmAddress}</p>
+                          {partner.farmPhone && (
+                            <p className="text-gray-500 font-medium flex items-center gap-1 pl-4.5">
+                              <Phone className="w-3 h-3 text-gray-400" /> {partner.farmPhone}
+                            </p>
+                          )}
+                        </div>
+                      )}
+
+                      {partner.storeAddress && (
+                        <div className="border-t border-gray-200/60 pt-2.5 space-y-1">
+                          <p className="font-bold text-[10px] uppercase text-green-700 tracking-wider flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5" /> Cửa hàng
+                          </p>
+                          <p className="leading-relaxed pl-4.5 text-gray-700">{partner.storeAddress}</p>
+                          {partner.storePhone && (
+                            <p className="text-gray-500 font-medium flex items-center gap-1 pl-4.5">
+                              <Phone className="w-3 h-3 text-gray-400" /> {partner.storePhone}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 mt-4 border-t border-gray-100">
                     <a 
                       href={partner.website} 
                       target="_blank" 

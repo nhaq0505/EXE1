@@ -449,15 +449,23 @@ export interface Partner {
   logo: string;
   description: string;
   website: string;
+  farmAddress?: string;
+  farmPhone?: string;
+  storeAddress?: string;
+  storePhone?: string;
 }
 
 export const partners: Partner[] = [
   {
     id: "part1",
-    name: "Đối Tác Chiến Lược Green Solution",
+    name: "Nông Sản Hoà Khương",
     logo: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=300",
-    description: "Đối tác chiến lược đồng hành cùng Green Solution thúc đẩy nông nghiệp hữu cơ bền vững và giải pháp tiêu dùng thân thiện với môi trường.",
-    website: "https://www.facebook.com/share/1CgywBNB1T/?mibextid=wwXIfr"
+    description: "Nông Sản Hoà Khương là đơn vị sản xuất chuyên cung cấp nông sản sạch theo mô hình từ nông trại đến bàn ăn tại Đà Nẵng.",
+    website: "https://www.facebook.com/share/1CgywBNB1T/?mibextid=wwXIfr",
+    farmAddress: "Thôn 5 - Hoà Khương - Hoà Vang - Đà Nẵng",
+    farmPhone: "0905642894",
+    storeAddress: "27 Trần Kim Bảng - Khuê Trung - Cẩm Lệ - ĐN",
+    storePhone: "0905621456"
   }
 ];
 
