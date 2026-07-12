@@ -5,6 +5,16 @@ import { farms, products } from '../../mocks/mockData';
 import { ProductCard } from '../../components/features/ProductCard';
 import { Button } from '../../components/ui/Button';
 
+const getYoutubeEmbedUrl = (url: string): string | null => {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[2].length === 11) {
+    return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&playlist=${match[2]}`;
+  }
+  return null;
+};
+
 export default function FarmDetail() {
   const { id } = useParams<{ id: string }>();
 
@@ -29,6 +39,8 @@ export default function FarmDetail() {
       </div>
     );
   }
+
+  const youtubeEmbedUrl = getYoutubeEmbedUrl(farm.videoUrl || '');
 
   return (
     <div className="bg-white pb-20">
@@ -94,14 +106,25 @@ export default function FarmDetail() {
               <div className="w-full aspect-video rounded-xl overflow-hidden relative shadow-lg bg-gray-900 border border-gray-200">
                 {/* Video Player */}
                 {farm.videoUrl ? (
-                  <video 
-                    src={farm.videoUrl}
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
+                  youtubeEmbedUrl ? (
+                    <iframe
+                      src={youtubeEmbedUrl}
+                      title={`Livestream ${farm.name}`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <video 
+                      src={farm.videoUrl}
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  )
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-3">
                     <Video className="w-12 h-12 opacity-50" />
@@ -110,7 +133,7 @@ export default function FarmDetail() {
                 )}
                 
                 {/* LIVE Badge Overlay */}
-                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm">
+                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm pointer-events-none">
                   <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
                   <span className="text-xs font-bold tracking-widest text-white uppercase">Live</span>
                 </div>

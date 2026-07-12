@@ -72,7 +72,7 @@ export const farms: Farm[] = [
     description: "Nông Sản Hoà Khương là đơn vị sản xuất chuyên cung cấp nông sản sạch theo mô hình từ nông trại đến bàn ăn tại Đà Nẵng.",
     location: "Thôn 5, Hoà Khương, Hoà Vang, Đà Nẵng",
     rating: 4.8,
-    videoUrl: "https://videos.pexels.com/video-files/3266800/3266800-sd_640_360_30fps.mp4"
+    videoUrl: "https://www.youtube.com/watch?v=61O3wIfOSEw"
   }
 ];
 
