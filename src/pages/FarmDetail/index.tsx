@@ -10,7 +10,7 @@ const getYoutubeEmbedUrl = (url: string): string | null => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   if (match && match[2].length === 11) {
-    return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&playlist=${match[2]}`;
+    return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&playlist=${match[2]}&controls=0&disablekb=1&modestbranding=1`;
   }
   return null;
 };
@@ -113,7 +113,7 @@ export default function FarmDetail() {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover pointer-events-none select-none"
                     />
                   ) : (
                     <video 
@@ -122,7 +122,7 @@ export default function FarmDetail() {
                       loop 
                       muted 
                       playsInline
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover pointer-events-none select-none"
                     />
                   )
                 ) : (
@@ -132,8 +132,11 @@ export default function FarmDetail() {
                   </div>
                 )}
                 
+                {/* Transparent Blocker Overlay */}
+                <div className="absolute inset-0 bg-transparent z-10 cursor-default" />
+                
                 {/* LIVE Badge Overlay */}
-                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm pointer-events-none">
+                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm pointer-events-none z-20">
                   <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
                   <span className="text-xs font-bold tracking-widest text-white uppercase">Live</span>
                 </div>
